@@ -1,0 +1,28 @@
+<idea-plugin>
+    <!--插件的id，注意不要跟其他插件重复，这个id全局唯一，尽可能复杂些-->
+    <id>io.jsbxyyx.cutleek</id>
+    <!--插件的名称-->
+    <name>割韭菜</name>
+    <vendor email="" url="http://github.com/jsbxyyx">jsbxyyx</vendor>
+
+    <!--插件的描述信息，支持html，展示的位置参考图14-->
+    <description><![CDATA[
+    割韭菜!!!
+    割韭菜!!!
+    祝你好运!!!
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow icon="/icon.png" anchor="left" id="cut_leek" factoryClass="io.jsbxyyx.cutleek.FundWindow"/>
+        <applicationConfigurable id="cut_leek_settings" instance="io.jsbxyyx.cutleek.SettingsWindow"/>
+    </extensions>
+
+    <!--跟build.gradle里的sinceBuild一致即可，意义相同，必须配置-->
+    <idea-version since-build="173"/>
+
+    <actions>
+
+    </actions>
+</idea-plugin>
