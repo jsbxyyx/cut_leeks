@@ -20,7 +20,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text value="输入基金编码，英文逗号分隔："/>
+          <text value="fund code, use commas to separate: "/>
         </properties>
       </component>
       <component id="f57a1" class="javax.swing.JLabel">
@@ -30,7 +30,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text value="输入股票编码，英文逗号分隔："/>
+          <text value="stock code, use commas to separate: "/>
         </properties>
       </component>
       <scrollpane id="ed54a">
