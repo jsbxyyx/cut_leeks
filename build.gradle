@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.jsbxyyx'
-version '1.0'
+version '1.1'
 
 sourceCompatibility = 1.8
 
@@ -21,10 +21,9 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      割韭菜!!!
-      割韭菜!!!
-      祝你好运!!!
-      """
+    v1.0: 支持fund，stock；支持idea 173以上版本；<br/>
+    v1.1: 涨跌无色模式；指定时间提醒模式；<br/>
+    """
     sinceBuild "173"
 }
 

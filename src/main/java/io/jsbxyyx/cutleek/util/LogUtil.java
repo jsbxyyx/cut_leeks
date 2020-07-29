@@ -17,4 +17,8 @@ public class LogUtil {
         new NotificationGroup("Gradle sync", NotificationDisplayType.NONE, true).createNotification(text, MessageType.INFO).notify(project);
     }
 
+    public static void info(String text, NotificationDisplayType displayType) {
+        new NotificationGroup("Gradle sync", displayType, true).createNotification(text, MessageType.INFO).notify(project);
+    }
+
 }

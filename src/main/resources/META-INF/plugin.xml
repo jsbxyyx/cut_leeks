@@ -3,13 +3,12 @@
     <id>io.jsbxyyx.cutleek</id>
     <!--插件的名称-->
     <name>割韭菜</name>
-    <vendor email="" url="http://github.com/jsbxyyx">jsbxyyx</vendor>
+    <vendor url="http://github.com/jsbxyyx">jsbxyyx</vendor>
 
     <!--插件的描述信息，支持html，展示的位置参考图14-->
     <description><![CDATA[
-    割韭菜!!!
-    割韭菜!!!
-    祝你好运!!!
+    v1.0: 支持fund，stock；支持idea 173以上版本；<br/>
+    v1.1: 涨跌无色模式；指定时间提醒模式；<br/>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>

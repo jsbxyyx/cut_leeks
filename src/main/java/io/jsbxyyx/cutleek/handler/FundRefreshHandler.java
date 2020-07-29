@@ -1,5 +1,6 @@
 package io.jsbxyyx.cutleek.handler;
 
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ui.JBColor;
 import io.jsbxyyx.cutleek.domain.Fund;
 
@@ -77,13 +78,16 @@ public abstract class FundRefreshHandler {
                 } catch (Exception e) {
 
                 }
-                Color orgin = getForeground();
-                if (temp > 0) {
-                    setForeground(JBColor.RED);
-                } else if (temp < 0) {
-                    setForeground(JBColor.GREEN);
-                } else if (temp == 0) {
-                    setForeground(orgin);
+                boolean convert_mode = PropertiesComponent.getInstance().getBoolean("key_convert_mode");
+                if (!convert_mode) {
+                    Color orgin = getForeground();
+                    if (temp > 0) {
+                        setForeground(JBColor.RED);
+                    } else if (temp < 0) {
+                        setForeground(JBColor.GREEN);
+                    } else if (temp == 0) {
+                        setForeground(orgin);
+                    }
                 }
                 return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             }
