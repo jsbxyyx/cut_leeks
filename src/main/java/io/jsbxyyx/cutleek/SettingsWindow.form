@@ -51,7 +51,7 @@
             <constraints/>
             <properties>
               <lineWrap value="true"/>
-              <rows value="10"/>
+              <rows value="3"/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>
@@ -71,7 +71,7 @@
             <constraints/>
             <properties>
               <lineWrap value="true"/>
-              <rows value="10"/>
+              <rows value="3"/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>

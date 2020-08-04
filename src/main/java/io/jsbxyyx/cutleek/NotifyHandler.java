@@ -1,11 +1,7 @@
 package io.jsbxyyx.cutleek;
 
 import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationDisplayType;
-import com.intellij.notification.NotificationGroup;
-import com.intellij.notification.NotificationType;
-import com.intellij.openapi.project.Project;
 import io.jsbxyyx.cutleek.util.LogUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -38,7 +34,7 @@ public class NotifyHandler {
                 try {
                     String format = DateFormatUtils.format(new Date(), "HH:mm");
                     if (Objects.equals(format, notify_time)) {
-                        LogUtil.info(notify_time + " mai mai mai mai mai mai mai mai mai.", NotificationDisplayType.BALLOON);
+                        LogUtil.info("mai mai mai mai mai mai mai mai mai.", NotificationDisplayType.BALLOON);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
