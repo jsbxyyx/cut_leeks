@@ -4,10 +4,12 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ui.JBColor;
 import io.jsbxyyx.cutleek.domain.Fund;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,7 +78,6 @@ public abstract class FundRefreshHandler {
                     String s = value.toString().substring(0, value.toString().length() - 1);
                     temp = Double.parseDouble(s);
                 } catch (Exception e) {
-
                 }
                 boolean convert_mode = PropertiesComponent.getInstance().getBoolean("key_convert_mode");
                 if (!convert_mode) {
@@ -113,12 +114,19 @@ public abstract class FundRefreshHandler {
             String today = dateFormat.format(new Date());
             if (timeStr != null && timeStr.startsWith(today)) {
                 timeStr = timeStr.substring(timeStr.indexOf(" ") + 1);
+            } else if (timeStr == null) {
+                timeStr = "--";
             }
             String gszzlStr = "--";
             if (fund.getGszzl() != null) {
                 gszzlStr = fund.getGszzl().startsWith("-") ? fund.getGszzl() : "+" + fund.getGszzl();
+                gszzlStr = gszzlStr + "%";
             }
-            temp[i] = new Object[]{fund.getFundName() + "(" + fund.getFundCode() + ")", fund.getGsz(), gszzlStr + "%", timeStr};
+            String gsz = fund.getGsz();
+            if (gsz == null) {
+                gsz = "--";
+            }
+            temp[i] = new Object[]{fund.getFundName() + "(" + fund.getFundCode() + ")", gsz, gszzlStr, timeStr};
         }
         return temp;
     }

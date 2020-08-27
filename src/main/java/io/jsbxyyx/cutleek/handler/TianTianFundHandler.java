@@ -1,11 +1,14 @@
 package io.jsbxyyx.cutleek.handler;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.jsbxyyx.cutleek.domain.Fund;
+import io.jsbxyyx.cutleek.domain.FundIntro;
+import io.jsbxyyx.cutleek.domain.Result;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
 
-import javax.swing.*;
+import javax.swing.JTable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,10 +62,18 @@ public class TianTianFundHandler extends FundRefreshHandler {
                 @Override
                 public void run() {
                     try {
-                        String result = HttpClient.getHttpClient().get("http://fundgz.1234567.com.cn/js/" + s + ".js?rt=" + System.currentTimeMillis());
-                        String json = result.substring(8, result.length() - 2);
-                        Fund bean = gson.fromJson(json, Fund.class);
-                        updateData(bean);
+                        long t = System.currentTimeMillis();
+                        String url0 = String.format("https://fundmobapi.eastmoney.com/FundMApi/FundBaseTypeInformation.ashx?FCODE=%s&deviceid=Wap&plat=Wap&product=EFund&version=2.0.0&Uid=&_=%s", s, t);
+                        String json0 = HttpClient.getHttpClient().get(url0);
+                        Result<FundIntro> result0 = gson.fromJson(json0, new TypeToken<Result<FundIntro>>(){}.getType());
+
+                        String url = String.format("https://fundmobapi.eastmoney.com/FundMApi/FundValuationDetail.ashx?FCODE=%s&deviceid=Wap&plat=Wap&product=EFund&version=2.0.0&Uid=&_=%s", s, t);
+                        String json = HttpClient.getHttpClient().get(url);
+                        Result<List<Fund>> result = gson.fromJson(json, new TypeToken<Result<List<Fund>>>(){}.getType());
+
+                        Fund fund = result.getDatas().get(0);
+                        fund.setFundName(result0.getDatas().getShortname());
+                        updateData(fund);
                         updateUI();
                     } catch (Exception e) {
                         e.printStackTrace();
