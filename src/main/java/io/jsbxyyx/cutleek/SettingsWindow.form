@@ -8,6 +8,8 @@
     <rowspec value="center:max(d;4px):noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
     <colspec value="fill:d:noGrow"/>
     <colspec value="left:4dlu:noGrow"/>
     <colspec value="fill:d:grow"/>
@@ -47,7 +49,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="8a9e6" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="8a9e6" class="javax.swing.JTextArea" binding="taFundCode">
             <constraints/>
             <properties>
               <lineWrap value="true"/>
@@ -67,7 +69,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="ae881" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
+          <component id="ae881" class="javax.swing.JTextArea" binding="taStockCode">
             <constraints/>
             <properties>
               <lineWrap value="true"/>
@@ -86,7 +88,7 @@
           <text value="covert mode: "/>
         </properties>
       </component>
-      <component id="97a10" class="javax.swing.JCheckBox" binding="checkBox1">
+      <component id="97a10" class="javax.swing.JCheckBox" binding="cbConvertMode">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <forms/>
@@ -105,9 +107,27 @@
           <text value="notify time(HH:mm): "/>
         </properties>
       </component>
-      <component id="a43bd" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="a43bd" class="javax.swing.JTextField" binding="tfNotifyTime">
         <constraints>
           <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="9c924" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="stock refresh time(ms): "/>
+        </properties>
+      </component>
+      <component id="39220" class="javax.swing.JTextField" binding="tfStockRefreshTime">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
           <forms defaultalign-horz="false"/>

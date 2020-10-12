@@ -6,11 +6,14 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import io.jsbxyyx.cutleek.contants.Contants;
 import io.jsbxyyx.cutleek.handler.FundRefreshHandler;
 import io.jsbxyyx.cutleek.handler.TianTianFundHandler;
 import io.jsbxyyx.cutleek.util.LogUtil;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ public class FundWindow implements ToolWindowFactory {
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fundRefreshHandler.handle(loadFunds());
+                onInit();
                 stockWindow.onInit();
                 notifyHandler.onInit();
             }
@@ -53,14 +56,20 @@ public class FundWindow implements ToolWindowFactory {
     @Override
     public void init(ToolWindow window) {
         fundRefreshHandler = new TianTianFundHandler(table1);
-        fundRefreshHandler.handle(loadFunds());
+        onInit();
         stockWindow.onInit();
         notifyHandler.onInit();
     }
 
+    public void onInit() {
+        List<String> fundCodes = loadFunds();
+        fundRefreshHandler.setFundCodes(fundCodes);
+        fundRefreshHandler.handle();
+    }
+
     private List<String> loadFunds() {
         List<String> temp = new ArrayList<>();
-        String value = PropertiesComponent.getInstance().getValue("key_funds");
+        String value = PropertiesComponent.getInstance().getValue(Contants.KEY_FUNDS);
         if (value == null) {
             return temp;
         }

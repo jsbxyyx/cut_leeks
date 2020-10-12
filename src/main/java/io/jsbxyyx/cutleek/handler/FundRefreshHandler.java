@@ -26,12 +26,9 @@ public abstract class FundRefreshHandler {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    /**
-     * 从网络更新数据
-     *
-     * @param code
-     */
-    public abstract void handle(List<String> code);
+    public abstract void setFundCodes(List<String> fundCodes);
+    public abstract void setFundRefreshTime(int fundRefreshTime);
+    public abstract void handle();
 
     /**
      * 更新全部数据

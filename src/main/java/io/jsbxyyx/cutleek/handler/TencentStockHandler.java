@@ -4,7 +4,9 @@ import io.jsbxyyx.cutleek.domain.Stock;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +14,8 @@ import java.util.List;
 
 public class TencentStockHandler extends StockRefreshHandler {
 
-    private List<String> codes = new ArrayList<>();
+    private List<String> stocks = new ArrayList<>();
+    private int stockRefreshTime;
 
     private Thread worker;
     private JLabel label;
@@ -27,10 +30,20 @@ public class TencentStockHandler extends StockRefreshHandler {
     }
 
     @Override
-    public void handle(List<String> code) {
+    public void setStocks(List<String> stocks) {
+        this.stocks = stocks;
+    }
+
+    @Override
+    public void setStockRefreshTime(int stockRefreshTime) {
+        this.stockRefreshTime = stockRefreshTime;
+    }
+
+    @Override
+    public void handle() {
 
         LogUtil.info("Cut Leek 更新股票编码数据.");
-        if (code.isEmpty()) {
+        if (stocks.isEmpty()) {
             return;
         }
         if (worker != null) {
@@ -43,32 +56,29 @@ public class TencentStockHandler extends StockRefreshHandler {
                 while (worker != null && worker.hashCode() == Thread.currentThread().hashCode() && !worker.isInterrupted()) {
                     stepAction();
                     try {
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(stockRefreshTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-        clear();
-        codes.clear();
-        codes.addAll(code);
+        super.clear();
         //排序，按加入顺序
-        for (String s : codes) {
+        for (String s : stocks) {
             updateData(new Stock(s));
         }
         worker.start();
-
     }
 
     private void stepAction() {
-        if (codes.isEmpty()) {
+        if (stocks.isEmpty()) {
             return;
         }
         StringBuilder stringBuffer = new StringBuilder();
-        for (int i = 0; i < codes.size(); i++) {
-            stringBuffer.append(codes.get(i));
-            if (i < codes.size() - 1) {
+        for (int i = 0; i < stocks.size(); i++) {
+            stringBuffer.append(stocks.get(i));
+            if (i < stocks.size() - 1) {
                 stringBuffer.append(',');
             }
         }

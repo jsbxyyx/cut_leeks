@@ -15,22 +15,33 @@ import java.util.List;
 public class TianTianFundHandler extends FundRefreshHandler {
 
     private static Gson gson = new Gson();
-    private List<String> codes = new ArrayList<>();
+    private List<String> fundCodes = new ArrayList<>();
+    private int fundRefreshTime = 60 * 1000;
 
     private Thread worker;
+
+    @Override
+    public void setFundCodes(List<String> fundCodes) {
+        this.fundCodes = fundCodes;
+    }
+
+    @Override
+    public void setFundRefreshTime(int fundRefreshTime) {
+        this.fundRefreshTime = fundRefreshTime;
+    }
 
     public TianTianFundHandler(JTable table) {
         super(table);
     }
 
     @Override
-    public void handle(List<String> code) {
+    public void handle() {
         LogUtil.info("Cut Leek 更新基金编码数据.");
         if (worker != null) {
             worker.interrupt();
             worker.stop();
         }
-        if (code.isEmpty()) {
+        if (fundCodes.isEmpty()) {
             return;
         }
         worker = new Thread(new Runnable() {
@@ -39,25 +50,23 @@ public class TianTianFundHandler extends FundRefreshHandler {
                 while (worker != null && worker.hashCode() == Thread.currentThread().hashCode() && !worker.isInterrupted()) {
                     stepAction();
                     try {
-                        Thread.sleep(60 * 1000);
+                        Thread.sleep(fundRefreshTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
-        clear();
-        codes.clear();
-        codes.addAll(code);
+        super.clear();
         //排序，按加入顺序
-        for (String s : codes) {
+        for (String s : fundCodes) {
             updateData(new Fund(s));
         }
         worker.start();
     }
 
     private void stepAction() {
-        for (String s : codes) {
+        for (String s : fundCodes) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

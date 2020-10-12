@@ -4,10 +4,12 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ui.JBColor;
 import io.jsbxyyx.cutleek.domain.Stock;
 
-import javax.swing.*;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +24,9 @@ public abstract class StockRefreshHandler {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    /**
-     * 从网络更新数据
-     *
-     * @param code
-     */
-    public abstract void handle(List<String> code);
+    public abstract void setStocks(List<String> stocks);
+    public abstract void setStockRefreshTime(int stockRefreshTime);
+    public abstract void handle();
 
     /**
      * 更新全部数据
