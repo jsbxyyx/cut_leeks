@@ -1,6 +1,11 @@
 感谢[huage2580/leeks](https://github.com/huage2580/leeks)
 
 changlog
+**v1.2**
+
+fix: 解决没有净值估算的基金报错问题；
+
+feat: 增加自定义设置时间；
 
 **v1.1**
 
