@@ -36,7 +36,7 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价", "涨跌", "涨跌幅", "更新时间"};
+                String[] columnNames = {"股票名称", "当前价/成本", "涨跌", "涨跌幅", "更新时间"};
                 DefaultTableModel model = new DefaultTableModel(convertData(), columnNames);
                 table.setModel(model);
                 updateColors();

@@ -38,7 +38,7 @@ public abstract class FundRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"基金名称", "估算净值", "估算涨跌", "更新时间"};
+                String[] columnNames = {"基金名称", "估算净值/成本", "估算涨跌", "更新时间"};
                 DefaultTableModel model = new DefaultTableModel(convertData(), columnNames);
                 table.setModel(model);
                 updateColors();
