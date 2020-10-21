@@ -3,18 +3,22 @@ package io.jsbxyyx.cutleek.handler;
 import io.jsbxyyx.cutleek.domain.Stock;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class TencentStockHandler extends StockRefreshHandler {
 
-    private List<String> stocks = new ArrayList<>();
+    private Map<String, String> stocks = new LinkedHashMap<>();
     private int stockRefreshTime;
 
     private Thread worker;
@@ -31,7 +35,18 @@ public class TencentStockHandler extends StockRefreshHandler {
 
     @Override
     public void setStocks(List<String> stocks) {
-        this.stocks = stocks;
+        this.stocks.clear();
+        if (stocks != null && !stocks.isEmpty()) {
+            for (String stock : stocks) {
+                String[] splits = stock.split("\\|");
+                if (splits.length >= 2) {
+                    this.stocks.put(splits[0], splits[1]);
+                } else {
+                    this.stocks.put(splits[0], "");
+                }
+            }
+        }
+
     }
 
     @Override
@@ -65,7 +80,7 @@ public class TencentStockHandler extends StockRefreshHandler {
         });
         super.clear();
         //排序，按加入顺序
-        for (String s : stocks) {
+        for (String s : stocks.keySet()) {
             updateData(new Stock(s));
         }
         worker.start();
@@ -76,8 +91,10 @@ public class TencentStockHandler extends StockRefreshHandler {
             return;
         }
         StringBuilder stringBuffer = new StringBuilder();
-        for (int i = 0; i < stocks.size(); i++) {
-            stringBuffer.append(stocks.get(i));
+        Set<String> strings = stocks.keySet();
+        Iterator<String> iterator = strings.iterator();
+        for (int i = 0; i < strings.size(); i++) {
+            stringBuffer.append(iterator.next());
             if (i < stocks.size() - 1) {
                 stringBuffer.append(',');
             }
@@ -99,7 +116,8 @@ public class TencentStockHandler extends StockRefreshHandler {
             String[] values = dataStr.split("~");
             Stock bean = new Stock(code);
             bean.setName(values[1]);
-            bean.setNow(values[3]);
+            String buyPrice = stocks.get(code);
+            bean.setNow(values[3] + (StringUtils.isBlank(buyPrice) ? "" : "[" + buyPrice + "]"));
             bean.setChange(values[31]);
             bean.setChangePercent(values[32]);
             bean.setTime(values[30]);
