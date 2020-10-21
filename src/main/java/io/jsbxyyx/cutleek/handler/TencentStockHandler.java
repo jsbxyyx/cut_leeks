@@ -117,7 +117,7 @@ public class TencentStockHandler extends StockRefreshHandler {
             Stock bean = new Stock(code);
             bean.setName(values[1]);
             String buyPrice = stocks.get(code);
-            bean.setNow(values[3] + (StringUtils.isBlank(buyPrice) ? "" : "[" + buyPrice + "]"));
+            bean.setNow(values[3] + (StringUtils.isBlank(buyPrice) ? "" : "/" + buyPrice));
             bean.setChange(values[31]);
             bean.setChangePercent(values[32]);
             bean.setTime(values[30]);

@@ -21,7 +21,7 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-    v1.3: stock增加买入价格 例子：sh600519|1732.86<br/>
+    v1.3: stock, fund增加买入价格 例子：sh600519|1732.86<br/>
     v1.2: 解决无净值估算的基金显示问题<br/>
     v1.1: 涨跌无色模式；指定时间提醒模式<br/>
     v1.0: 支持fund，stock(sh600519,sz000001,hk00700,usAAPL)；支持idea 173以上版本<br/>

@@ -7,22 +7,35 @@ import io.jsbxyyx.cutleek.domain.FundIntro;
 import io.jsbxyyx.cutleek.domain.Result;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JTable;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TianTianFundHandler extends FundRefreshHandler {
 
     private static Gson gson = new Gson();
-    private List<String> fundCodes = new ArrayList<>();
+    private Map<String, String> funds = new LinkedHashMap<>();
     private int fundRefreshTime = 60 * 1000;
 
     private Thread worker;
 
     @Override
-    public void setFundCodes(List<String> fundCodes) {
-        this.fundCodes = fundCodes;
+    public void setFunds(List<String> funds) {
+        this.funds.clear();
+        if (funds != null && !funds.isEmpty()) {
+            for (String fund : funds) {
+                String[] splits = fund.split("\\|");
+                if (splits.length >= 2) {
+                    this.funds.put(splits[0], splits[1]);
+                } else {
+                    this.funds.put(splits[0], "");
+                }
+            }
+        }
+
     }
 
     @Override
@@ -41,7 +54,7 @@ public class TianTianFundHandler extends FundRefreshHandler {
             worker.interrupt();
             worker.stop();
         }
-        if (fundCodes.isEmpty()) {
+        if (funds.isEmpty()) {
             return;
         }
         worker = new Thread(new Runnable() {
@@ -59,14 +72,14 @@ public class TianTianFundHandler extends FundRefreshHandler {
         });
         super.clear();
         //排序，按加入顺序
-        for (String s : fundCodes) {
+        for (String s : funds.keySet()) {
             updateData(new Fund(s));
         }
         worker.start();
     }
 
     private void stepAction() {
-        for (String s : fundCodes) {
+        for (String s : funds.keySet()) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -82,6 +95,8 @@ public class TianTianFundHandler extends FundRefreshHandler {
 
                         Fund fund = result.getDatas().get(0);
                         fund.setFundName(result0.getDatas().getShortname());
+                        String buyPrice = funds.get(fund.getFundCode());
+                        fund.setGsz(fund.getGsz() + (StringUtils.isBlank(buyPrice) ? "" : "/" + buyPrice));
                         updateData(fund);
                         updateUI();
                     } catch (Exception e) {

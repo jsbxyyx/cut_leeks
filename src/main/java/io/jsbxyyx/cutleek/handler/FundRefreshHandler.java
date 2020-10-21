@@ -26,7 +26,7 @@ public abstract class FundRefreshHandler {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    public abstract void setFundCodes(List<String> fundCodes);
+    public abstract void setFunds(List<String> funds);
     public abstract void setFundRefreshTime(int fundRefreshTime);
     public abstract void handle();
 

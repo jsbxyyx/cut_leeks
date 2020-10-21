@@ -63,7 +63,7 @@ public class FundWindow implements ToolWindowFactory {
 
     public void onInit() {
         List<String> fundCodes = loadFunds();
-        fundRefreshHandler.setFundCodes(fundCodes);
+        fundRefreshHandler.setFunds(fundCodes);
         fundRefreshHandler.handle();
     }
 

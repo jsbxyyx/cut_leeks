@@ -4,7 +4,7 @@ changlog
 
 **v1.3**
 
-feat: stock增加买入价格 例子：sh600519|1732.86
+feat: stock, fund增加买入价格 例子：sh600519|1732.86
 
 **v1.2**
 
