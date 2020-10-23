@@ -3,7 +3,6 @@ package io.jsbxyyx.cutleek.handler;
 import io.jsbxyyx.cutleek.domain.Stock;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -117,7 +116,10 @@ public class TencentStockHandler extends StockRefreshHandler {
             Stock bean = new Stock(code);
             bean.setName(values[1]);
             String buyPrice = stocks.get(code);
-            bean.setNow(values[3] + (StringUtils.isBlank(buyPrice) ? "" : "/" + buyPrice));
+            bean.setBuyPrice(buyPrice);
+            bean.setNow(values[3]);
+            bean.setClose(values[4]);
+            bean.setOpen(values[5]);
             bean.setChange(values[31]);
             bean.setChangePercent(values[32]);
             bean.setTime(values[30]);

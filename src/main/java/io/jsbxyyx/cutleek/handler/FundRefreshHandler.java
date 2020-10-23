@@ -3,6 +3,7 @@ package io.jsbxyyx.cutleek.handler;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ui.JBColor;
 import io.jsbxyyx.cutleek.domain.Fund;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -123,7 +124,11 @@ public abstract class FundRefreshHandler {
             if (gsz == null) {
                 gsz = "--";
             }
-            temp[i] = new Object[]{fund.getFundName() + "(" + fund.getFundCode() + ")", gsz, gszzlStr, timeStr};
+            temp[i] = new Object[]{
+                    fund.getFundName() + "(" + fund.getFundCode() + ")",
+                    gsz + "/" + (StringUtils.isBlank(fund.getBuyPrice()) ? "--" : fund.getBuyPrice()),
+                    gszzlStr,
+                    timeStr};
         }
         return temp;
     }

@@ -6,7 +6,10 @@ public class Stock {
 
     private String code;
     private String name;
+    private String buyPrice;
     private String now;
+    private String close; // 昨收
+    private String open; // 今开
     private String change;//涨跌
     private String changePercent;
     private String time;
@@ -35,12 +38,36 @@ public class Stock {
         this.name = name;
     }
 
+    public String getBuyPrice() {
+        return buyPrice;
+    }
+
+    public void setBuyPrice(String buyPrice) {
+        this.buyPrice = buyPrice;
+    }
+
     public String getNow() {
         return now;
     }
 
     public void setNow(String now) {
         this.now = now;
+    }
+
+    public String getClose() {
+        return close;
+    }
+
+    public void setClose(String close) {
+        this.close = close;
+    }
+
+    public String getOpen() {
+        return open;
+    }
+
+    public void setOpen(String open) {
+        this.open = open;
     }
 
     public String getChange() {

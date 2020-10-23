@@ -16,13 +16,14 @@ public class Fund {
     private String gszzl;//估算涨跌百分比 即-0.42%
     private String gztime;//gztime估值时间
 
+    private String buyPrice;
+
     public Fund() {
     }
 
     public Fund(String fundCode) {
         this.fundCode = fundCode;
         this.fundName = "--";
-
     }
 
 
@@ -80,6 +81,14 @@ public class Fund {
 
     public void setGztime(String gztime) {
         this.gztime = gztime;
+    }
+
+    public String getBuyPrice() {
+        return buyPrice;
+    }
+
+    public void setBuyPrice(String buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
     @Override

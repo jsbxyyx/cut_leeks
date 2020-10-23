@@ -3,6 +3,7 @@ package io.jsbxyyx.cutleek.handler;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ui.JBColor;
 import io.jsbxyyx.cutleek.domain.Stock;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -36,7 +37,7 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价/成本", "涨跌", "涨跌幅", "更新时间"};
+                String[] columnNames = {"股票名称", "当前价/成本/昨收/今开", "涨跌", "涨跌幅", "更新时间"};
                 DefaultTableModel model = new DefaultTableModel(convertData(), columnNames);
                 table.setModel(model);
                 updateColors();
@@ -113,7 +114,16 @@ public abstract class StockRefreshHandler {
             if (stock.getChangePercent() != null) {
                 changePercentStr = stock.getChangePercent().startsWith("-") ? stock.getChangePercent() : "+" + stock.getChangePercent();
             }
-            temp[i] = new Object[]{stock.getName() + " (" + stock.getCode() + ")", stock.getNow(), changeStr, changePercentStr + "%", timeStr};
+            temp[i] = new Object[]{
+                    stock.getName() + " (" + stock.getCode() + ")",
+                    stock.getNow() + "/" +
+                            (StringUtils.isBlank(stock.getBuyPrice()) ? "--" : stock.getBuyPrice()) + "/" +
+                            (StringUtils.isBlank(stock.getClose()) ? "--" : stock.getClose()) + "/" +
+                            (StringUtils.isBlank(stock.getOpen()) ? "--" : stock.getOpen()),
+                    changeStr,
+                    changePercentStr + "%",
+                    timeStr
+            };
         }
         return temp;
     }

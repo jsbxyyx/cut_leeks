@@ -7,7 +7,6 @@ import io.jsbxyyx.cutleek.domain.FundIntro;
 import io.jsbxyyx.cutleek.domain.Result;
 import io.jsbxyyx.cutleek.util.HttpClient;
 import io.jsbxyyx.cutleek.util.LogUtil;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.JTable;
 import java.util.LinkedHashMap;
@@ -96,7 +95,8 @@ public class TianTianFundHandler extends FundRefreshHandler {
                         Fund fund = result.getDatas().get(0);
                         fund.setFundName(result0.getDatas().getShortname());
                         String buyPrice = funds.get(fund.getFundCode());
-                        fund.setGsz(fund.getGsz() + (StringUtils.isBlank(buyPrice) ? "" : "/" + buyPrice));
+                        fund.setBuyPrice(buyPrice);
+                        fund.setGsz(fund.getGsz());
                         updateData(fund);
                         updateUI();
                     } catch (Exception e) {
