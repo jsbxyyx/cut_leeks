@@ -37,7 +37,7 @@ public abstract class StockRefreshHandler {
             @Override
             public void run() {
                 recordTableSize();
-                String[] columnNames = {"股票名称", "当前价/成本/昨收/今开", "涨跌", "涨跌幅", "更新时间"};
+                String[] columnNames = {"股票名称", "当前价/成本/昨收/累计盈亏率", "涨跌", "涨跌幅", "更新时间"};
                 DefaultTableModel model = new DefaultTableModel(convertData(), columnNames);
                 table.setModel(model);
                 updateColors();
@@ -119,7 +119,7 @@ public abstract class StockRefreshHandler {
                     stock.getNow() + "/" +
                             (StringUtils.isBlank(stock.getBuyPrice()) ? "--" : stock.getBuyPrice()) + "/" +
                             (StringUtils.isBlank(stock.getClose()) ? "--" : stock.getClose()) + "/" +
-                            (StringUtils.isBlank(stock.getOpen()) ? "--" : stock.getOpen()),
+                            (StringUtils.isBlank(stock.getMyChange()) ? "--" : stock.getMyChange()),
                     changeStr,
                     changePercentStr + "%",
                     timeStr

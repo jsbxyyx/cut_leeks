@@ -14,6 +14,8 @@ public class Stock {
     private String changePercent;
     private String time;
 
+    private String myChange; // 累计盈亏率
+
     public Stock() {
     }
 
@@ -92,6 +94,14 @@ public class Stock {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getMyChange() {
+        return myChange;
+    }
+
+    public void setMyChange(String myChange) {
+        this.myChange = myChange;
     }
 
     @Override

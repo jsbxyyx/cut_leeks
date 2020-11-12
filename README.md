@@ -2,6 +2,10 @@
 
 changlog
 
+**v1.4**
+
+feat: 累计盈亏率
+
 **v1.3**
 
 feat: stock, fund增加买入价格 例子：sh600519|1732.86
